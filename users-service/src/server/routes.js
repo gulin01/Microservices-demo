@@ -14,7 +14,7 @@ const setupRoutes = app => {
             const newUser = await User.create({
                 email: req.body.email,
                 id: generateUUID(),
-                passwordHash: hashPassword(re.body.password)
+                passwordHash: hashPassword(req.body.password)
             });
             return res.json(newUser);
         } catch (e) {

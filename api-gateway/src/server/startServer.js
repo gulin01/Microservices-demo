@@ -6,14 +6,18 @@ import express from 'express';
 import resolvers from '#root/graphql/resolvers';
 import typeDefs from '#root/graphql/typeDefs';
 import accessEnv from "#root/helpers/accessEnv";
-
+import FormatGraphQLErrors from './FormatGraphQLErrors';
 
 const PORT = accessEnv("PORT", 7000);
 
 // Always use await for apply middleware
 
 async function startApolloServer(typeDefs, resolvers) {
-    const server = new ApolloServer({ typeDefs, resolvers })
+    const server = new ApolloServer({
+        formatError: FormatGraphQLErrors,
+        typeDefs,
+        resolvers
+    })
     const app = express();
     app.use(
         cors({
